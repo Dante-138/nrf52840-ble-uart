@@ -1,0 +1,19 @@
+# Build directory
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Zephyr / West
+twister-out*/
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
