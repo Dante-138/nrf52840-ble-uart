@@ -219,9 +219,9 @@ Memory region    Used Size  Region Size  %age Used
 
 | Problema | Solução |
 |---|---|
-| Dispositivo não aparece no scan | Verifique se o firmware foi gravado corretamente. Resete a DK (botão RESET) |
+| Dispositivo não aparece no scan | Verifique se o firmware foi gravado corretamente. Feche e abra o APP. Resete a DK (botão RESET) |
 | Conexão BLE falha | Apague bonding antigo: `nrfjprog --eraseall` + `west flash --runner jlink`. No celular, esqueça o dispositivo nas configurações de Bluetooth |
-| PuTTY não mostra nada | Verifique a porta COM no Gerenciador de Dispositivos. Confirme baud rate 115200 |
+| PuTTY não mostra nada | PUTTY não mostra prévia das mensagens, mas ele manda via TX |
 | Mensagens não chegam no celular | Habilite **notificações** na TX Characteristic do Nordic UART Service no app nRF Connect |
 | Erro de build com espaços no path | Mova o projeto para um caminho sem espaços, ex: `C:\ncs\projects\` |
 | `west: command not found` | Use o terminal do Toolchain Manager ou a extensão nRF Connect |
