@@ -18,32 +18,32 @@ Celular    ──BLE───> nRF52840 ──UART──> PuTTY (PC)
 |---|---|
 | LED1 piscando | Firmware rodando normalmente |
 | LED2 aceso | Dispositivo BLE conectado |
-| LED2 apagado | Nenhuma conexao BLE ativa |
+| LED2 apagado | Nenhuma conexão BLE ativa |
 
-## Demonstracao
+## Demonstração
 
-Ao gravar o firmware e abrir o PuTTY, voce vera:
+Ao gravar o firmware e abrir o PuTTY, você verá:
 
 ```
 ==================================
   nRF52840 BLE UART (NUS)
 ==================================
-Aguardando conexao BLE...
+Aguardando conexão BLE...
 Nome: nRF52840_BLE_UART
 ```
 
-Apos conectar pelo celular, as mensagens trafegam nos dois sentidos.
+Após conectar pelo celular, as mensagens trafegam nos dois sentidos.
 
 ## Hardware
 
-| Componente | Descricao |
+| Componente | Descrição |
 |---|---|
 | **Placa** | nRF52840 DK (PCA10056) |
 | **MCU** | nRF52840 (ARM Cortex-M4F, 64 MHz, 1 MB Flash, 256 KB RAM) |
 | **Radio** | Bluetooth 5.0 / BLE integrado |
 | **Interface UART** | VCOM via J-Link USB onboard |
 
-## Pre-requisitos
+## Pré-requisitos
 
 ### Software
 
@@ -62,11 +62,11 @@ Apos conectar pelo celular, as mensagens trafegam nos dois sentidos.
 
 ```
 nrf52840_ble_uart/
-├── CMakeLists.txt      # Configuracao de build CMake/Zephyr
-├── prj.conf            # Configuracao do kernel (Kconfig)
+├── CMakeLists.txt      # Configuração de build CMake/Zephyr
+├── prj.conf            # Configuração do kernel (Kconfig)
 ├── app.overlay         # Overlay do devicetree (define UART do NUS)
 ├── src/
-│   └── main.c          # Codigo fonte principal (~420 linhas)
+│   └── main.c          # Código fonte principal (~420 linhas)
 ├── .gitignore
 ├── LICENSE
 └── README.md
@@ -76,7 +76,7 @@ nrf52840_ble_uart/
 
 ### 1. Abra o terminal do nRF Connect SDK
 
-Use o terminal do **Toolchain Manager** ou a extensao **nRF Connect** no VS Code / Windsurf. O `west` precisa estar no PATH.
+Use o terminal do **Toolchain Manager** ou a extensão **nRF Connect** no VS Code / Windsurf. O `west` precisa estar no PATH.
 
 ### 2. Clone e compile
 
@@ -86,9 +86,9 @@ cd nrf52840-ble-uart
 west build -b nrf52840dk/nrf52840 . --no-sysbuild
 ```
 
-> **Nota:** O `--no-sysbuild` e necessario no nRF Connect SDK v3.x para projetos standalone.
+> **Nota:** O `--no-sysbuild` é necessário no nRF Connect SDK v3.x para projetos standalone.
 
-> **Nota:** O projeto deve estar em um caminho **sem espacos** (ex: `C:\ncs\projects\`). Caminhos como `C:\Users\Meu Nome\...` causam erro no CMake.
+> **Nota:** O projeto deve estar em um caminho **sem espaços** (ex: `C:\ncs\projects\`). Caminhos como `C:\Users\Meu Nome\...` causam erro no CMake.
 
 ### 3. Grave na placa
 
@@ -102,7 +102,7 @@ west flash --runner jlink
 
 Abra o Gerenciador de Dispositivos e encontre a porta COM da DK (ex: COM3, COM5).
 
-| Parametro | Valor |
+| Parâmetro | Valor |
 |---|---|
 | **Connection type** | Serial |
 | **Porta** | COMx (varia por PC) |
@@ -117,27 +117,27 @@ Abra o Gerenciador de Dispositivos e encontre a porta COM da DK (ex: COM3, COM5)
 1. Abra o app **nRF Connect** no celular
 2. Toque em **Scan**
 3. Encontre **"nRF52840_BLE_UART"** e toque em **Connect**
-4. O **LED2** da DK acendera (conexao estabelecida)
-5. Role ate encontrar o servico **Nordic UART Service** (UUID `6E400001-...`)
-6. Na **TX Characteristic** (UUID `6E400003-...`), toque no icone de setas/sino para **habilitar notificacoes** — isso e obrigatorio para receber mensagens do PuTTY
+4. O **LED2** da DK acenderá (conexão estabelecida)
+5. Role até encontrar o serviço **Nordic UART Service** (UUID `6E400001-...`)
+6. Na **TX Characteristic** (UUID `6E400003-...`), toque no ícone de setas/sino para **habilitar notificações** — isso é obrigatório para receber mensagens do PuTTY
 7. Na **RX Characteristic** (UUID `6E400002-...`), toque na seta para cima para enviar mensagens para o PuTTY
 
-### 3. Testar a comunicacao
+### 3. Testar a comunicação
 
-| Direcao | Como testar |
+| Direção | Como testar |
 |---|---|
 | **PuTTY -> Celular** | Digite texto no PuTTY + **Enter**. A mensagem aparece na TX characteristic do app |
 | **Celular -> PuTTY** | Escreva na RX characteristic do app e envie. A mensagem aparece no PuTTY |
 
-## Limitacoes Conhecidas
+## Limitações Conhecidas
 
-| Limitacao | Motivo |
+| Limitação | Motivo |
 |---|---|
-| **Sem echo local no PuTTY** | O firmware nao ecoa os caracteres digitados de volta. A digitacao e "as cegas", mas a mensagem e enviada ao pressionar Enter |
-| **Limite de ~20 caracteres por mensagem** | Limitacao do MTU padrao do BLE. Mensagens maiores sao fragmentadas ou truncadas |
-| **Envio apenas com Enter** | O firmware acumula caracteres e so envia via BLE ao receber `\r` ou `\n` |
+| **Sem echo local no PuTTY** | O firmware não ecoa os caracteres digitados de volta. A digitação é "às cegas", mas a mensagem é enviada ao pressionar Enter |
+| **Limite de ~20 caracteres por mensagem** | Limitação do MTU padrão do BLE. Mensagens maiores são fragmentadas ou truncadas |
+| **Envio apenas com Enter** | O firmware acumula caracteres e só envia via BLE ao receber `\r` ou `\n` |
 
-## Detalhes Tecnicos
+## Detalhes Técnicos
 
 ### Arquitetura
 
@@ -147,7 +147,7 @@ O firmware usa dois caminhos de dados independentes:
 ```
 Tecla no PuTTY
   -> UART RX (async API com DMA)
-    -> Buffer acumula ate \r ou \n
+    -> Buffer acumula até \r ou \n
       -> FIFO (fifo_uart_rx_data)
         -> ble_write_thread
           -> bt_nus_send()
@@ -165,30 +165,30 @@ Mensagem no app
 
 ### Thread Model
 
-| Thread | Funcao | Stack | Prioridade |
+| Thread | Função | Stack | Prioridade |
 |---|---|---|---|
 | **main** | Init BLE/UART, pisca LED1 | default | 0 |
 | **ble_write_thread** | Le FIFO e envia via BLE | 1024 B | 7 |
 
-### Configuracoes Kconfig (prj.conf)
+### Configurações Kconfig (prj.conf)
 
 ```ini
 # Bluetooth
 CONFIG_BT=y                    # Habilita stack BLE
-CONFIG_BT_PERIPHERAL=y         # Modo periferico (aceita conexoes)
+CONFIG_BT_PERIPHERAL=y         # Modo periférico (aceita conexões)
 CONFIG_BT_NUS=y                # Nordic UART Service
 CONFIG_BT_DEVICE_NAME="nRF52840_BLE_UART"
 
 # UART
 CONFIG_SERIAL=y                # Driver serial
-CONFIG_UART_ASYNC_API=y        # API assincrona (eventos + DMA)
+CONFIG_UART_ASYNC_API=y        # API assíncrona (eventos + DMA)
 CONFIG_NRFX_UARTE0=y           # Driver nativo UARTE0
 CONFIG_UART_0_ASYNC=y           # Modo async para UART0
 
 # DK
-CONFIG_DK_LIBRARY=y            # Biblioteca de LEDs/botoes
+CONFIG_DK_LIBRARY=y            # Biblioteca de LEDs/botões
 
-# Logging via RTT (nao UART, para nao conflitar com NUS)
+# Logging via RTT (não UART, para não conflitar com NUS)
 CONFIG_LOG=y
 CONFIG_USE_SEGGER_RTT=y
 CONFIG_LOG_BACKEND_RTT=y
@@ -205,9 +205,9 @@ CONFIG_UART_CONSOLE=n
 };
 ```
 
-Define que o NUS usara a **UART0**, que no nRF52840 DK e roteada pela interface J-Link USB (VCOM), ou seja, a mesma porta que aparece no PuTTY.
+Define que o NUS usará a **UART0**, que no nRF52840 DK é roteada pela interface J-Link USB (VCOM), ou seja, a mesma porta que aparece no PuTTY.
 
-### Memoria Utilizada
+### Memória Utilizada
 
 ```
 Memory region    Used Size  Region Size  %age Used
@@ -217,15 +217,15 @@ Memory region    Used Size  Region Size  %age Used
 
 ## Troubleshooting
 
-| Problema | Solucao |
+| Problema | Solução |
 |---|---|
-| Dispositivo nao aparece no scan | Verifique se o firmware foi gravado corretamente. Resete a DK (botao RESET) |
-| Conexao BLE falha | Apague bonding antigo: `nrfjprog --eraseall` + `west flash --runner jlink`. No celular, esqueca o dispositivo nas configuracoes de Bluetooth |
-| PuTTY nao mostra nada | Verifique a porta COM no Gerenciador de Dispositivos. Confirme baud rate 115200 |
-| Mensagens nao chegam no celular | Habilite **notificacoes** na TX Characteristic do Nordic UART Service no app nRF Connect |
-| Erro de build com espacos no path | Mova o projeto para um caminho sem espacos, ex: `C:\ncs\projects\` |
-| `west: command not found` | Use o terminal do Toolchain Manager ou a extensao nRF Connect |
+| Dispositivo não aparece no scan | Verifique se o firmware foi gravado corretamente. Resete a DK (botão RESET) |
+| Conexão BLE falha | Apague bonding antigo: `nrfjprog --eraseall` + `west flash --runner jlink`. No celular, esqueça o dispositivo nas configurações de Bluetooth |
+| PuTTY não mostra nada | Verifique a porta COM no Gerenciador de Dispositivos. Confirme baud rate 115200 |
+| Mensagens não chegam no celular | Habilite **notificações** na TX Characteristic do Nordic UART Service no app nRF Connect |
+| Erro de build com espaços no path | Mova o projeto para um caminho sem espaços, ex: `C:\ncs\projects\` |
+| `west: command not found` | Use o terminal do Toolchain Manager ou a extensão nRF Connect |
 
-## Licenca
+## Licença
 
 MIT License - veja [LICENSE](LICENSE)
