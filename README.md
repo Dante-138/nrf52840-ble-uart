@@ -1,3 +1,11 @@
+<p align="center">
+  <img src="https://img.shields.io/badge/MCU-nRF52840-blue?style=flat-square" alt="nRF52840"/>
+  <img src="https://img.shields.io/badge/RTOS-Zephyr-green?style=flat-square" alt="Zephyr"/>
+  <img src="https://img.shields.io/badge/SDK-nRF_Connect-red?style=flat-square" alt="nRF Connect SDK"/>
+  <img src="https://img.shields.io/badge/Protocol-BLE_UART-purple?style=flat-square" alt="BLE UART"/>
+  <img src="https://img.shields.io/badge/License-MIT-lightgrey?style=flat-square" alt="MIT"/>
+</p>
+
 # nRF52840 DK - BLE UART (Nordic UART Service)
 
 Firmware para a **nRF52840 DK** que cria uma ponte bidirecional entre **UART (PuTTY)** e **Bluetooth Low Energy (BLE)**, utilizando o **Nordic UART Service (NUS)**.
